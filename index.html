@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="hehe-game" content="width=device-width, initial-scale=1.0">
     <title>hehe-game</title>
-    <link href="https://fonts.googleapis.com/css2?family=Viga:wght@400;700&display=swap" rel="stylesheet"> <!-- Подключаем шрифт Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Viga:wght@400;700&display=swap" rel="stylesheet">
     <style>
         /* Основные стили для страницы и канваса */
         body {
@@ -119,13 +119,14 @@
 
         let pacman, food, enemies;
         let score, highScore, isGameOver;
+        let gameStarted = false; // Флаг для проверки, началась ли игра
 
         // Функция для сброса игры
         function resetGame() {
             pacman = {
                 x: 10,
                 y: 10,
-                dx: 1,
+                dx: 0,
                 dy: 0,
                 size: 16,
                 speed: 1.5
@@ -150,8 +151,16 @@
             if (isGameOver && event.key === 'Enter') {
                 resetGame();
             }
+
+            // Начинаем игру при первом нажатии любой клавиши
+            if (!gameStarted) {
+                gameStarted = true; // Устанавливаем флаг, что игра началась
+                pacman.dx = 1; // Даем начальное направление, например вправо
+            }
+
             switch (event.key) {
                 case 'ArrowUp':
+                case 'w':
                     // Движение вверх
                     if (pacman.dy === 0) {
                         pacman.dx = 0;
@@ -159,6 +168,7 @@
                     }
                     break;
                 case 'ArrowDown':
+                case 's':
                     // Движение вниз
                     if (pacman.dy === 0) {
                         pacman.dx = 0;
@@ -166,6 +176,7 @@
                     }
                     break;
                 case 'ArrowLeft':
+                case 'a':
                     // Движение влево
                     if (pacman.dx === 0) {
                         pacman.dx = -pacman.speed;
@@ -173,6 +184,7 @@
                     }
                     break;
                 case 'ArrowRight':
+                case 'd':
                     // Движение вправо
                     if (pacman.dx === 0) {
                         pacman.dx = pacman.speed;
@@ -217,19 +229,31 @@
             ctx.fill();
             ctx.shadowBlur = 0; // Сбрасываем эффект тени
 
-            // Рисуем пищу с неоновым эффектом
+            // Рисуем пищу с неоновым эффектом и закругленными краями
             ctx.fillStyle = 'green';
             ctx.shadowColor = 'rgba(0, 255, 0, 0.6)';
             ctx.shadowBlur = 20;
-            ctx.fillRect(food.x * grid, food.y * grid, grid, grid);
+            ctx.beginPath();
+            ctx.moveTo(food.x * grid + 5, food.y * grid); // Начинаем с точки с закруглением
+            ctx.lineTo(food.x * grid + grid - 5, food.y * grid); 
+            ctx.quadraticCurveTo(food.x * grid + grid, food.y * grid, food.x * grid + grid, food.y * grid + 5); // Правый верхний закругленный угол
+            ctx.lineTo(food.x * grid + grid, food.y * grid + grid - 5);
+            ctx.quadraticCurveTo(food.x * grid + grid, food.y * grid + grid, food.x * grid + grid - 5, food.y * grid + grid); // Правый нижний закругленный угол
+            ctx.lineTo(food.x * grid + 5, food.y * grid + grid);
+            ctx.quadraticCurveTo(food.x * grid, food.y * grid + grid, food.x * grid, food.y * grid + grid - 5); // Левый нижний закругленный угол
+            ctx.lineTo(food.x * grid, food.y * grid + 5);
+            ctx.quadraticCurveTo(food.x * grid, food.y * grid, food.x * grid + 5, food.y * grid); // Левый верхний закругленный угол
+            ctx.fill();
             ctx.shadowBlur = 0; // Сбрасываем эффект тени
 
-            // Рисуем врагов с неоновым эффектом
+            // Рисуем врагов как круги с неоновым эффектом
             for (let enemy of enemies) {    
                 ctx.fillStyle = 'red';
                 ctx.shadowColor = 'rgba(255, 0, 0, 0.6)';
                 ctx.shadowBlur = 20;
-                ctx.fillRect(enemy.x * grid, enemy.y * grid, grid, grid);
+                ctx.beginPath();
+                ctx.arc(enemy.x * grid + grid / 2, enemy.y * grid + grid / 2, grid / 2, 0, 2 * Math.PI); // Рисуем врага как круг
+                ctx.fill();
                 ctx.shadowBlur = 0; // Сбрасываем эффект тени
 
                 // Движение врага
@@ -288,8 +312,29 @@
                     isGameOver = true; // Если столкновение, игра окончена
                     document.getElementById('finalScore').textContent = score; // Отображаем финальный счёт
                     document.getElementById('modal').style.display = 'block'; // Показываем модальное окно
+                    animateGameOver(); // Запускаем анимацию проигрыша
                 }
             });
+        }
+
+        // Функция анимации проигрыша
+        function animateGameOver() {
+            let scale = 1;
+            const interval = setInterval(() => {
+                if (scale > 0) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем канвас
+                    
+                    // Рисуем проигравшего пакмана уменьшающимся
+                    ctx.fillStyle = 'yellow';
+                    ctx.beginPath();
+                    ctx.arc(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2, pacman.size * scale, 0, 2 * Math.PI);
+                    ctx.fill();
+
+                    scale -= 0.05; // Уменьшаем размер
+                } else {
+                    clearInterval(interval); // Останавливаем анимацию
+                }
+            }, 50);
         }
 
         // Функция обновления игры
@@ -312,3 +357,4 @@
     </script>
 </body>
 </html>
+
