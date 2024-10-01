@@ -2,126 +2,185 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="hehe-game" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>hehe-game</title>
     <link href="https://fonts.googleapis.com/css2?family=Viga:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Основные стили для страницы и канваса */
         body {
-            background-color: #000000; /* Темный фон для страницы */
-            color: #ffffff; /* Белый цвет текста */
+            background-color: #000000; 
+            color: #ffffff; 
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Высота вьюпорта */
-            margin: 0; /* Убираем отступы */
-            font-family: 'Viga', sans-serif; /* Новый шрифт страницы */
+            height: 100vh; 
+            margin: 0; 
+            font-family: 'Viga', sans-serif; 
         }
         canvas {
-            border: 2px solid rgb(255, 204, 0); /* Желтая рамка вокруг канваса */
-            background-color: #0f0f0f; /* Черный цвет фона канваса */
-            border-radius: 10px; /* Закругленные углы */
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7); /* Тень для канваса */
+            border: 2px solid rgb(255, 204, 0); 
+            background-color: #0f0f0f; 
+            border-radius: 10px; 
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7); 
         }
         .version {
-            font-size: 36px; /* Размер шрифта для версии */
-            font-weight: bold; /* Жирный шрифт */
-            color: rgba(255, 204, 0, 0.85); /* Цвет текста */
-            text-shadow: 0 0 10px rgba(255, 204, 0, 1), 0 0 20px rgba(255, 204, 0, 0.5); /* Неоновый эффект */
-            margin-bottom: 20px; /* Отступ снизу */
+            font-size: 36px; 
+            font-weight: bold; 
+            color: rgba(255, 204, 0, 0.85); 
+            text-shadow: 0 0 10px rgba(255, 204, 0, 1), 0 0 20px rgba(255, 204, 0, 0.5); 
+            margin-bottom: 20px; 
         }
         .scoreboard {
-            margin-top: 35px; /* Отступ сверху */
-            font-size: 24px; /* Размер шрифта для счётчика */
-            background-color: rgba(255, 204, 0, 0.15); /* Полупрозрачный желтый фон */
-            padding: 10px 20px; /* Внутренние отступы */
-            border-radius: 5px; /* Закругленные углы */
-            text-align: center; /* Центрирование текста */
-            transition: background-color 0.3s ease; /* Плавный переход фона */
-            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); /* Тень для таблицы */
+            margin-top: 35px; 
+            font-size: 24px; 
+            background-color: rgba(255, 204, 0, 0.15); 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            text-align: center; 
+            transition: background-color 0.3s ease; 
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); 
         }
         .scoreboard:hover {
-            background-color: rgba(255, 204, 0, 0.3); /* Более яркий фон при наведении */
+            background-color: rgba(255, 204, 0, 0.3); 
         }
         .scoreboard div {
             color: rgba(255, 204, 0, 0.85);
             text-shadow: 0 0 5px rgba(255, 204, 0, 1), 0 0 10px rgba(255, 204, 0, 0.5);
         }
         #modal { 
-            display: none; /* Изначально модальное окно скрыто */
-            position: fixed; /* Фиксированное позиционирование */
-            top: 50%; /* Центр по вертикали */
-            left: 50%; /* Центр по горизонтали */
-            transform: translate(-50%, -50%); /* Сдвигаем для центрирования */
-            background-color: rgba(255, 204, 0); /* Полупрозрачный черный фон */
-            padding: 20px; /* Внутренние отступы */
-            border-radius: 10px; /* Закругленные углы */
-            z-index: 10; /* Над всем остальным контентом */
-            text-align: center; /* Центрируем текст внутри модального окна */
-            box-shadow: 0 0 30px rgba(255, 204, 0); /* Тень для модального окна */
+            display: none; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            background-color: rgba(255, 204, 0); 
+            padding: 20px; 
+            border-radius: 10px; 
+            z-index: 10; 
+            text-align: center; 
+            box-shadow: 0 0 30px rgba(255, 204, 0); 
         }
         #modalMessage {
-            font-size: 20px; /* Размер шрифта сообщения в модальном окне */
+            font-size: 20px; 
         }
         #modal button {
-            margin-top: 10px; /* Отступ сверху для кнопки */
-            padding: 10px 15px; /* Внутренние отступы */
-            background-color: #a78500; /* Цвет фона кнопки */
-            border: none; /* Убираем рамку у кнопки */
-            border-radius: 5px; /* Закругленные углы кнопки */
-            cursor: pointer; /* Указатель при наведении */
-            font-size: 16px; /* Размер шрифта для кнопки */
-            transition: background-color 0.3s ease; /* Плавный переход */
+            margin-top: 10px; 
+            padding: 10px 15px; 
+            background-color: #a78500; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            transition: background-color 0.3s ease; 
         }
         #modal button:hover {
-            background-color: #e2b206; /* Более яркий фон при наведении на кнопку */
+            background-color: #e2b206; 
         }
         .discord {
-            margin-top: 20px; /* Отступ сверху */
-            font-size: 18px; /* Размер шрифта для ссылки на Discord */
-            background-color: rgba(255, 255, 255, 0.05); /* Полупрозрачный фон */
-            padding: 10px; /* Внутренние отступы */
-            border-radius: 5px; /* Закругленные углы */
-            text-align: center; /* Центрируем текст */
-            transition: transform 0.3s ease; /* Плавный переход при увеличении */
-            color: rgba(255, 204, 0, 0.85); /* Цвет текста */
-            text-shadow: 0 0 5px rgba(255, 204, 0, 1), 0 0 10px rgba(255, 204, 0, 0.5); /* Неоновый эффект */
+            margin-top: 20px; 
+            font-size: 18px; 
+            background-color: rgba(255, 255, 255, 0.05); 
+            padding: 10px; 
+            border-radius: 5px; 
+            text-align: center; 
+            transition: transform 0.3s ease; 
+            color: rgba(255, 204, 0, 0.85); 
+            text-shadow: 0 0 5px rgba(255, 204, 0, 1), 0 0 10px rgba(255, 204, 0, 0.5); 
         }
         .discord:hover {
-            transform: scale(1.05); /* Увеличение при наведении */
+            transform: scale(1.05); 
+        }
+        .settings {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: rgb(255, 204, 0, 1);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            padding: 10px 15px;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .settings-panel {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: rgba(255, 204, 0, 1);
+            padding: 15px; 
+            border-radius: 10px;
+            box-shadow: 0 0 15px hwb(0 0% 100% / 0.5);
+        }
+        button.toggle-control {
+            margin-top: 10px; 
+            padding: 10px 20px; 
+            background-color: rgb(221, 177, 0); 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            transition: background-color 0.3s ease; 
+            display: block;
+        }
+        button.toggle-control:hover {
+            background-color: #e2b206; 
+        }
+        .colorPanel {
+            display: flex;
+            margin-top: 10px;
+        }
+        .color {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <div class="version">Версия 1.0</div> <!-- Неоновая надпись версии игры -->
-    <canvas id="game" width="500" height="500"></canvas> <!-- Канвас для игры -->
+    <div class="version">Версия 1.0</div>
+    <canvas id="game" width="500" height="500"></canvas>
     <div class="scoreboard">
-        <div>Текущий счет: <span id="currentScore">0</span></div> <!-- Текущий счет -->
-        <div>Максимальный счет: <span id="highScore">0</span></div> <!-- Максимальный счет -->
+        <div>Текущий счет: <span id="currentScore">0</span></div>
+        <div>Максимальный счет: <span id="highScore">0</span></div>
     </div>
     
     <div id="modal">
-        <div id="modalMessage">Вы проиграли! Ваш счет: <span id="finalScore">0</span></div> <!-- Сообщение об окончании игры -->
-        <button id="restartButton">Играть заново</button> <!-- Кнопка для перезапуска игры -->
+        <div id="modalMessage">Вы проиграли! Ваш счет: <span id="finalScore">0</span></div>
+        <button id="restartButton">Играть заново</button>
+    </div>
+    
+    <div class="settings-panel" id="settingsPanel">
+        <button class="toggle-control" id="controlButton">Активировать управление мышью</button>
+        <div class="colorPanel">
+            <div class="color" style="background-color: yellow;" data-color="yellow"></div>
+            <div class="color" style="background-color: red;" data-color="red"></div>
+            <div class="color" style="background-color: blue;" data-color="blue"></div>
+            <div class="color" style="background-color: green;" data-color="green"></div>
+            <div class="color" style="background-color: purple;" data-color="purple"></div>
+            <div class="color" style="background-color: Orange;" data-color="orange"></div>
+        </div>
     </div>
 
-    <div class="discord">Дискорд разработчика: .hehe_hehe.</div> <!-- Информация о разработчике -->
+    <button class="settings" id="settingsButton">Настройки</button>
+    <div class="discord">Дискорд разработчика: .hehe_hehe.</div>
 
     <script>
-        // Получаем элементы канваса и контекста для рисования
         const canvas = document.getElementById('game');
         const ctx = canvas.getContext('2d');
 
-        // Задаем размеры клеток и общее количество клеток на канвасе
         const grid = 20;
         const count = canvas.width / grid;
 
         let pacman, food, enemies;
         let score, highScore, isGameOver;
-        let gameStarted = false; // Флаг для проверки, началась ли игра
+        let gameStarted = false;
+        let mouseControlEnabled = false;
 
-        // Функция для сброса игры
         function resetGame() {
             pacman = {
                 x: 10,
@@ -129,138 +188,164 @@
                 dx: 0,
                 dy: 0,
                 size: 16,
-                speed: 1.5
+                speed: 1.5,
+                color: 'yellow',
+                angle: 0,
+                shadowColor: 'rgba(255, 255, 0, 0.6)' // Цвет тени
             };
-            // Пища случайным образом на канвасе
+
             food = {
                 x: Math.floor(Math.random() * count),
                 y: Math.floor(Math.random() * count)
             };
-            enemies = [];  // Список врагов
-            
-            score = 0; // Счет сбрасывается
-            isGameOver = false; // Игра не окончена
-            document.getElementById('currentScore').textContent = score; // Обновляем текущий счет
-            document.getElementById('modal').style.display = 'none'; // Скрываем модальное окно
-            update(); // Начинаем обновление игры
+
+            enemies = [];
+            score = 0;
+            isGameOver = false;
+            document.getElementById('currentScore').textContent = score;
+            document.getElementById('modal').style.display = 'none';
+            update();
         }
 
-        // Обработчик событий, который отслеживает нажатие клавиш
         document.addEventListener('keydown', (event) => {
-            // Если игра окончена и нажата клавиша Enter, сбрасываем игру
             if (isGameOver && event.key === 'Enter') {
                 resetGame();
             }
 
-            // Начинаем игру при первом нажатии любой клавиши
             if (!gameStarted) {
-                gameStarted = true; // Устанавливаем флаг, что игра началась
-                pacman.dx = 1; // Даем начальное направление, например вправо
+                gameStarted = true;
+                pacman.dx = 1;
             }
 
-            switch (event.key) {
-                case 'ArrowUp':
-                case 'w':
-                    // Движение вверх
-                    if (pacman.dy === 0) {
-                        pacman.dx = 0;
-                        pacman.dy = -pacman.speed; // Устанавливаем направление
-                    }
-                    break;
-                case 'ArrowDown':
-                case 's':
-                    // Движение вниз
-                    if (pacman.dy === 0) {
-                        pacman.dx = 0;
-                        pacman.dy = pacman.speed; // Устанавливаем направление
-                    }
-                    break;
-                case 'ArrowLeft':
-                case 'a':
-                    // Движение влево
-                    if (pacman.dx === 0) {
-                        pacman.dx = -pacman.speed;
-                        pacman.dy = 0; // Устанавливаем направление
-                    }
-                    break;
-                case 'ArrowRight':
-                case 'd':
-                    // Движение вправо
-                    if (pacman.dx === 0) {
-                        pacman.dx = pacman.speed;
-                        pacman.dy = 0; // Устанавливаем направление
-                    }
-                    break;
+            if (!mouseControlEnabled) {
+                switch (event.key) {
+                    case 'w': // Вверх
+                    case 'ArrowUp':
+                        if (pacman.dy === 0) {
+                            pacman.dx = 0;
+                            pacman.dy = -pacman.speed;
+                        }
+                        break;
+                    case 's': // Вниз
+                    case 'ArrowDown':
+                        if (pacman.dy === 0) {
+                            pacman.dx = 0;
+                            pacman.dy = pacman.speed;
+                        }
+                        break;
+                    case 'a': // Влево
+                    case 'ArrowLeft':
+                        if (pacman.dx === 0) {
+                            pacman.dx = -pacman.speed;
+                            pacman.dy = 0;
+                        }
+                        break;
+                    case 'd': // Вправо
+                    case 'ArrowRight':
+                        if (pacman.dx === 0) {
+                            pacman.dx = pacman.speed;
+                            pacman.dy = 0;
+                        }
+                        break;
+                }
+            }
+            
+            // Обновляем угол Пакмана в зависимости от направления движения
+            if (pacman.dx !== 0 || pacman.dy !== 0) {
+                pacman.angle = Math.atan2(pacman.dy, pacman.dx);
             }
         });
 
-        // Обработчик для кнопки перезапуска
         document.getElementById('restartButton').addEventListener('click', resetGame);
 
-        // Функция отрисовки игры
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем канвас
-            
-            // Угол открытия "пакмана" в зависимости от направления
-            let startAngle = 0.2 * Math.PI;
-            let endAngle = 1.8 * Math.PI;
+        canvas.addEventListener('mousemove', (event) => {
+            if (mouseControlEnabled) {
+                const rect = canvas.getBoundingClientRect();
+                const mousePos = {
+                    x: event.clientX - rect.left,
+                    y: event.clientY - rect.top
+                };
 
-            if(pacman.dx < 0) {
-                startAngle = 1.2 * Math.PI;
-                endAngle = 0.8 * Math.PI; // Смена углов для движения влево
-            } else if(pacman.dx > 0) {
-                startAngle = 0.2 * Math.PI;
-                endAngle = -0.2 * Math.PI; // Смена углов для движения вправо
-            } else if(pacman.dy < 0) {
-                startAngle = 1.7 * Math.PI;
-                endAngle = 1.3 * Math.PI; // Смена углов для движения вверх
-            } else if(pacman.dy > 0) {
-                startAngle = 0.7 * Math.PI;
-                endAngle = 0.3 * Math.PI; // Смена углов для движения вниз
+                const angle = Math.atan2(mousePos.y - (pacman.y * grid + grid / 2), mousePos.x - (pacman.x * grid + grid / 2));
+                pacman.dx = Math.cos(angle) * pacman.speed;
+                pacman.dy = Math.sin(angle) * pacman.speed;
+                pacman.angle = angle; // Поворачиваем Пакмана к мыши
             }
+        });
 
-            // Рисуем пакмана с неоновым эффектом
-            ctx.fillStyle = 'yellow';
-            ctx.shadowColor = 'rgba(255, 255, 0, 0.6)';
+        document.getElementById('controlButton').addEventListener('click', () => {
+            mouseControlEnabled = !mouseControlEnabled;
+            document.getElementById('controlButton').textContent = mouseControlEnabled ? 'Вернуться к управлению клавиатурой' : 'Активировать управление мышью';
+            if (!mouseControlEnabled) {
+                pacman.dx = 0;
+                pacman.dy = 0;
+            }
+        });
+
+        document.querySelectorAll('.color').forEach(colorDiv => {
+            colorDiv.addEventListener('click', (e) => {
+                pacman.color = e.target.getAttribute('data-color');
+                // Устанавливаем цвет тени в зависимости от цвета Пакмана
+                pacman.shadowColor = `rgba(${getColorRGB(pacman.color)}, 0.6)`;
+            });
+        });
+
+        function getColorRGB(colorName) {
+            const colors = {
+                yellow: '255, 255, 0',
+                red: '255, 0, 0',
+                blue: '0, 0, 255',
+                green: '0, 255, 0',
+                purple: '128, 0, 128',
+                orange: '255, 165, 0'
+            };
+            return colors[colorName] || '255, 255, 0'; // По умолчанию желтый
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            let startAngle = pacman.angle + Math.PI / 4; // Угол начала линии для рисования Пакмана
+            let endAngle = pacman.angle - Math.PI / 4; // Угол конца линии для рисования Пакмана
+
+            ctx.fillStyle = pacman.color;
+            ctx.shadowColor = pacman.shadowColor; // Используем цвет тени из объекта pacman
             ctx.shadowBlur = 20;
             ctx.beginPath();
-            ctx.arc(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2, pacman.size, startAngle, endAngle);
+            ctx.moveTo(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2);
+            ctx.arc(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2, pacman.size, startAngle, endAngle, false);
             ctx.lineTo(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2);
             ctx.fill();
-            ctx.shadowBlur = 0; // Сбрасываем эффект тени
+            ctx.shadowBlur = 0;
 
-            // Рисуем пищу с неоновым эффектом и закругленными краями
             ctx.fillStyle = 'green';
             ctx.shadowColor = 'rgba(0, 255, 0, 0.6)';
             ctx.shadowBlur = 20;
             ctx.beginPath();
-            ctx.moveTo(food.x * grid + 5, food.y * grid); // Начинаем с точки с закруглением
-            ctx.lineTo(food.x * grid + grid - 5, food.y * grid); 
-            ctx.quadraticCurveTo(food.x * grid + grid, food.y * grid, food.x * grid + grid, food.y * grid + 5); // Правый верхний закругленный угол
+            ctx.moveTo(food.x * grid + 5, food.y * grid);
+            ctx.lineTo(food.x * grid + grid - 5, food.y * grid);
+            ctx.quadraticCurveTo(food.x * grid + grid, food.y * grid, food.x * grid + grid, food.y * grid + 5);
             ctx.lineTo(food.x * grid + grid, food.y * grid + grid - 5);
-            ctx.quadraticCurveTo(food.x * grid + grid, food.y * grid + grid, food.x * grid + grid - 5, food.y * grid + grid); // Правый нижний закругленный угол
+            ctx.quadraticCurveTo(food.x * grid + grid, food.y * grid + grid, food.x * grid + grid - 5, food.y * grid + grid);
             ctx.lineTo(food.x * grid + 5, food.y * grid + grid);
-            ctx.quadraticCurveTo(food.x * grid, food.y * grid + grid, food.x * grid, food.y * grid + grid - 5); // Левый нижний закругленный угол
+            ctx.quadraticCurveTo(food.x * grid, food.y * grid + grid, food.x * grid, food.y * grid + grid - 5);
             ctx.lineTo(food.x * grid, food.y * grid + 5);
-            ctx.quadraticCurveTo(food.x * grid, food.y * grid, food.x * grid + 5, food.y * grid); // Левый верхний закругленный угол
+            ctx.quadraticCurveTo(food.x * grid, food.y * grid, food.x * grid + 5, food.y * grid);
             ctx.fill();
-            ctx.shadowBlur = 0; // Сбрасываем эффект тени
+            ctx.shadowBlur = 0;
 
-            // Рисуем врагов как круги с неоновым эффектом
-            for (let enemy of enemies) {    
+            for (let enemy of enemies) {
                 ctx.fillStyle = 'red';
                 ctx.shadowColor = 'rgba(255, 0, 0, 0.6)';
                 ctx.shadowBlur = 20;
                 ctx.beginPath();
-                ctx.arc(enemy.x * grid + grid / 2, enemy.y * grid + grid / 2, grid / 2, 0, 2 * Math.PI); // Рисуем врага как круг
+                ctx.arc(enemy.x * grid + grid / 2, enemy.y * grid + grid / 2, grid / 2, 0, 2 * Math.PI);
                 ctx.fill();
-                ctx.shadowBlur = 0; // Сбрасываем эффект тени
+                ctx.shadowBlur = 0;
 
-                // Движение врага
-                enemy.x += enemy.dx * 0.1; 
+                enemy.x += enemy.dx * 0.1;
                 enemy.y += enemy.dy * 0.1; 
 
-                // Изменение направления движения врага при достижении границы
                 if (enemy.x < 0 || enemy.x >= count) {
                     enemy.dx *= -1;
                 }
@@ -269,92 +354,90 @@
                 }
             }
 
-            // Движения пакмана
             pacman.x += pacman.dx / grid;
             pacman.y += pacman.dy / grid;
 
-            // Обработка выхода пакмана за границы (телепортация)
             if (pacman.x < 0) pacman.x = count - 1;
             if (pacman.x >= count) pacman.x = 0;
             if (pacman.y < 0) pacman.y = count - 1;
             if (pacman.y >= count) pacman.y = 0;
 
-            // Проверка на столкновение с пищей
             const distance = Math.hypot(pacman.x - food.x, pacman.y - food.y);
             if (distance < 1) {
-                score++; // Увеличиваем счет
-                // Переопределяем позицию пищи случайным образом
+                score++;
                 food.x = Math.floor(Math.random() * count);
                 food.y = Math.floor(Math.random() * count);
-                pacman.speed += 0.1; // Увеличиваем скорость пакмана
+                pacman.speed += 0.1; 
 
-                // Создаем нового врага при поедании пищи
-                enemies.push({
+                // Обработка появления новых врагов
+                const enemy = {
                     x: Math.floor(Math.random() * count),
                     y: Math.floor(Math.random() * count),
                     dx: Math.random() < 0.5 ? -1 : 1,
-                    dy: Math.random() < 0.5 ? -1 : 1
-                });
+                    dy: Math.random() < 0.5 ? -1 : 1,
+                    spawnTime: Date.now() // время появления врага
+                };
 
-                // Обновление текущего счёта
+                enemies.push(enemy);
+
                 document.getElementById('currentScore').textContent = score;
                 if (score > highScore) {
-                    highScore = score; // Сохраняем новый рекорд
+                    highScore = score;
                     document.getElementById('highScore').textContent = highScore;
-                    localStorage.setItem('highScore', highScore); // Сохраняем рекорд в локальное хранилище
+                    localStorage.setItem('highScore', highScore);
                 }
             }
 
-            // Проверка на столкновения с врагами
             enemies.forEach(enemy => {
                 const enemyDistance = Math.hypot(pacman.x - enemy.x, pacman.y - enemy.y);
-                if (enemyDistance < 1) {
-                    isGameOver = true; // Если столкновение, игра окончена
-                    document.getElementById('finalScore').textContent = score; // Отображаем финальный счёт
-                    document.getElementById('modal').style.display = 'block'; // Показываем модальное окно
-                    animateGameOver(); // Запускаем анимацию проигрыша
+                // Проверяем, если прошло более 2 секунд с момента появления врага
+                if (Date.now() - enemy.spawnTime >= 2000 && enemyDistance < 1) {
+                    isGameOver = true;
+                    document.getElementById('finalScore').textContent = score;
+                    document.getElementById('modal').style.display = 'block';
+                    animateGameOver();
                 }
             });
         }
 
-        // Функция анимации проигрыша
         function animateGameOver() {
             let scale = 1;
             const interval = setInterval(() => {
                 if (scale > 0) {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем канвас
-                    
-                    // Рисуем проигравшего пакмана уменьшающимся
-                    ctx.fillStyle = 'yellow';
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = pacman.color; 
                     ctx.beginPath();
                     ctx.arc(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2, pacman.size * scale, 0, 2 * Math.PI);
                     ctx.fill();
-
-                    scale -= 0.05; // Уменьшаем размер
+                    scale -= 0.05;
                 } else {
-                    clearInterval(interval); // Останавливаем анимацию
+                    clearInterval(interval);
                 }
             }, 50);
         }
 
-        // Функция обновления игры
         function update() {
             if (!isGameOver) {
-                draw(); // Отрисовываем кадр
-                requestAnimationFrame(update); // Запрашиваем следующий кадр
+                draw();
+                requestAnimationFrame(update);
             }
         }
 
-        // Загрузка максимального счёта из локального хранилища
         function loadHighScore() {
             const storedHighScore = localStorage.getItem('highScore');
-            highScore = storedHighScore ? parseInt(storedHighScore) : 0; // Получаем или устанавливаем 0
-            document.getElementById('highScore').textContent = highScore; // Отображаем его
+            highScore = storedHighScore ? parseInt(storedHighScore) : 0;
+            document.getElementById('highScore').textContent = highScore;
         }
 
-        loadHighScore(); // Загружаем максимальный счёт при старте
-        resetGame(); // Сброс игры
+        loadHighScore();
+        resetGame();
+
+        document.getElementById('settingsButton').addEventListener('click', () => {
+            const settingsPanel = document.getElementById('settingsPanel');
+            settingsPanel.style.display = settingsPanel.style.display === 'none' || settingsPanel.style.display === '' ? 'block' : 'none';
+        });
     </script>
 </body>
 </html>
+
 
