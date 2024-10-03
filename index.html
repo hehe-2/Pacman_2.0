@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,89 +8,101 @@
     <link href="https://fonts.googleapis.com/css2?family=Viga:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #000000; 
-            color: #ffffff; 
+            background-color: #000000;
+            color: #ffffff;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh; 
-            margin: 0; 
-            font-family: 'Viga', sans-serif; 
+            height: 100vh;
+            margin: 0;
+            font-family: 'Viga', sans-serif;
         }
+
         canvas {
-            border: 2px solid rgb(255, 204, 0); 
-            background-color: #0f0f0f; 
-            border-radius: 10px; 
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7); 
+            border: 2px solid rgb(255, 204, 0);
+            background-color: #0f0f0f;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.7);
         }
+
         .version {
-            font-size: 36px; 
-            font-weight: bold; 
-            color: rgba(255, 204, 0, 0.85); 
-            text-shadow: 0 0 10px rgba(255, 204, 0, 1), 0 0 20px rgba(255, 204, 0, 0.5); 
-            margin-bottom: 20px; 
+            font-size: 36px;
+            font-weight: bold;
+            color: rgba(255, 204, 0, 0.85);
+            text-shadow: 0 0 10px rgba(255, 204, 0, 1), 0 0 20px rgba(255, 204, 0, 0.5);
+            margin-bottom: 20px;
         }
+
         .scoreboard {
-            margin-top: 35px; 
-            font-size: 24px; 
-            background-color: rgba(255, 204, 0, 0.15); 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            text-align: center; 
-            transition: background-color 0.3s ease; 
-            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); 
+            margin-top: 35px;
+            font-size: 24px;
+            background-color: rgba(255, 204, 0, 0.15);
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
         }
+
         .scoreboard:hover {
-            background-color: rgba(255, 204, 0, 0.3); 
+            background-color: rgba(255, 204, 0, 0.3);
         }
+
         .scoreboard div {
             color: rgba(255, 204, 0, 0.85);
             text-shadow: 0 0 5px rgba(255, 204, 0, 1), 0 0 10px rgba(255, 204, 0, 0.5);
         }
-        #modal { 
-            display: none; 
-            position: fixed; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            background-color: rgba(255, 204, 0); 
-            padding: 20px; 
-            border-radius: 10px; 
-            z-index: 10; 
-            text-align: center; 
-            box-shadow: 0 0 30px rgba(255, 204, 0); 
+
+        #modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 204, 0);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 10;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255, 204, 0);
         }
+
         #modalMessage {
-            font-size: 20px; 
+            font-size: 20px;
         }
+
         #modal button {
-            margin-top: 10px; 
-            padding: 10px 15px; 
-            background-color: #a78500; 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            transition: background-color 0.3s ease; 
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #a78500;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
+
         #modal button:hover {
-            background-color: #e2b206; 
+            background-color: #e2b206;
         }
+
         .discord {
-            margin-top: 20px; 
-            font-size: 18px; 
-            background-color: rgba(255, 255, 255, 0.05); 
-            padding: 10px; 
-            border-radius: 5px; 
-            text-align: center; 
-            transition: transform 0.3s ease; 
-            color: rgba(255, 204, 0, 0.85); 
-            text-shadow: 0 0 5px rgba(255, 204, 0, 1), 0 0 10px rgba(255, 204, 0, 0.5); 
+            margin-top: 20px;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            color: rgba(255, 204, 0, 0.85);
+            text-shadow: 0 0 5px rgba(255, 204, 0, 1), 0 0 10px rgba(255, 204, 0, 0.5);
         }
+
         .discord:hover {
-            transform: scale(1.05); 
+            transform: scale(1.05);
         }
+
         .settings {
             position: absolute;
             top: 20px;
@@ -103,34 +116,39 @@
             z-index: 100;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
+
         .settings-panel {
             display: none;
             position: absolute;
             top: 50px;
             right: 20px;
             background-color: rgba(255, 204, 0, 1);
-            padding: 15px; 
+            padding: 15px;
             border-radius: 10px;
             box-shadow: 0 0 15px hwb(0 0% 100% / 0.5);
         }
+
         button.toggle-control {
-            margin-top: 10px; 
-            padding: 10px 20px; 
-            background-color: rgb(221, 177, 0); 
-            border: none; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
-            transition: background-color 0.3s ease; 
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: rgb(221, 177, 0);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
             display: block;
         }
+
         button.toggle-control:hover {
-            background-color: #e2b206; 
+            background-color: #e2b206;
         }
+
         .colorPanel {
             display: flex;
             margin-top: 10px;
         }
+
         .color {
             width: 40px;
             height: 40px;
@@ -139,21 +157,133 @@
             cursor: pointer;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
+
+        .money-board {
+            position: fixed;
+            right: 20px;
+            top: 200px;
+            background-color: rgba(255, 204, 0, 0.15);
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: rgba(255, 204, 0, 0.85);
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+            text-align: center;
+            font-size: 28px;
+            z-index: 100;
+        }
+
+        .money-animation {
+            position: fixed;
+            right: 40px;
+            top: 100px;
+            font-size: 30px;
+            color: rgba(255, 204, 0, 0.85);
+            opacity: 0;
+            transform: translateY(0);
+            animation: fadeInOut 1s forwards;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+        }
+
+        #shop {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 204, 0);
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 10;
+            box-shadow: 0 0 30px rgba(255, 204, 0);
+        }
+
+        .skin {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .skin img {
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255, 204, 0);
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .buy-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: rgba(255, 204, 0, 0.5);
+        }
+
+        .bought {
+            background-color: rgba(0, 255, 0, 0.5);
+            color: #fff;
+        }
     </style>
 </head>
+
 <body>
-    <div class="version">Версия 1.0</div>
+    <div class="version">Версия 1.2</div>
     <canvas id="game" width="500" height="500"></canvas>
+
     <div class="scoreboard">
         <div>Текущий счет: <span id="currentScore">0</span></div>
         <div>Максимальный счет: <span id="highScore">0</span></div>
     </div>
-    
+
+    <div class="money-board">
+        <div>Деньги: <span id="money">0</span></div>
+    </div>
+
+    <button class="settings" id="shopButton">Магазин</button>
+
     <div id="modal">
         <div id="modalMessage">Вы проиграли! Ваш счет: <span id="finalScore">0</span></div>
         <button id="restartButton">Играть заново</button>
     </div>
-    
+
+    <div id="shop">
+        <h2>Магазин</h2>
+        <div class="skin" data-skin="yellow" data-price="5">
+            <img src="path/to/skin_yellow.png" alt="Желтый скин">
+            <button class="buy-button">Цена: 5</button>
+        </div>
+        <div class="skin" data-skin="red" data-price="10">
+            <img src="path/to/skin_red.png" alt="Красный скин">
+            <button class="buy-button">Цена: 10</button>
+        </div>
+        <div class="skin" data-skin="blue" data-price="15">
+            <img src="path/to/skin_blue.png" alt="Синий скин">
+            <button class="buy-button">Цена: 15</button>
+        </div>
+        <button id="closeShop">Закрыть магазин</button>
+    </div>
+
     <div class="settings-panel" id="settingsPanel">
         <button class="toggle-control" id="controlButton">Активировать управление мышью</button>
         <div class="colorPanel">
@@ -162,7 +292,7 @@
             <div class="color" style="background-color: blue;" data-color="blue"></div>
             <div class="color" style="background-color: green;" data-color="green"></div>
             <div class="color" style="background-color: purple;" data-color="purple"></div>
-            <div class="color" style="background-color: Orange;" data-color="orange"></div>
+            <div class="color" style="background-color: orange;" data-color="orange"></div>
         </div>
     </div>
 
@@ -177,9 +307,10 @@
         const count = canvas.width / grid;
 
         let pacman, food, enemies;
-        let score, highScore, isGameOver;
+        let score, highScore, isGameOver, money;
         let gameStarted = false;
         let mouseControlEnabled = false;
+        let currentSkin = localStorage.getItem('currentSkin') || 'yellow'; // Скин по умолчанию
 
         function resetGame() {
             pacman = {
@@ -189,9 +320,9 @@
                 dy: 0,
                 size: 16,
                 speed: 1.5,
-                color: 'yellow',
+                color: currentSkin,
                 angle: 0,
-                shadowColor: 'rgba(255, 255, 0, 0.6)' // Цвет тени
+                shadowColor: `rgba(${getColorRGB(currentSkin)}, 0.6)`
             };
 
             food = {
@@ -201,8 +332,10 @@
 
             enemies = [];
             score = 0;
+            money = parseInt(localStorage.getItem('money')) || 0; // Загружаем деньги
             isGameOver = false;
             document.getElementById('currentScore').textContent = score;
+            document.getElementById('money').textContent = money;
             document.getElementById('modal').style.display = 'none';
             update();
         }
@@ -219,28 +352,28 @@
 
             if (!mouseControlEnabled) {
                 switch (event.key) {
-                    case 'w': // Вверх
+                    case 'w':
                     case 'ArrowUp':
                         if (pacman.dy === 0) {
                             pacman.dx = 0;
                             pacman.dy = -pacman.speed;
                         }
                         break;
-                    case 's': // Вниз
+                    case 's':
                     case 'ArrowDown':
                         if (pacman.dy === 0) {
                             pacman.dx = 0;
                             pacman.dy = pacman.speed;
                         }
                         break;
-                    case 'a': // Влево
+                    case 'a':
                     case 'ArrowLeft':
                         if (pacman.dx === 0) {
                             pacman.dx = -pacman.speed;
                             pacman.dy = 0;
                         }
                         break;
-                    case 'd': // Вправо
+                    case 'd':
                     case 'ArrowRight':
                         if (pacman.dx === 0) {
                             pacman.dx = pacman.speed;
@@ -249,8 +382,7 @@
                         break;
                 }
             }
-            
-            // Обновляем угол Пакмана в зависимости от направления движения
+
             if (pacman.dx !== 0 || pacman.dy !== 0) {
                 pacman.angle = Math.atan2(pacman.dy, pacman.dx);
             }
@@ -269,7 +401,7 @@
                 const angle = Math.atan2(mousePos.y - (pacman.y * grid + grid / 2), mousePos.x - (pacman.x * grid + grid / 2));
                 pacman.dx = Math.cos(angle) * pacman.speed;
                 pacman.dy = Math.sin(angle) * pacman.speed;
-                pacman.angle = angle; // Поворачиваем Пакмана к мыши
+                pacman.angle = angle;
             }
         });
 
@@ -285,8 +417,9 @@
         document.querySelectorAll('.color').forEach(colorDiv => {
             colorDiv.addEventListener('click', (e) => {
                 pacman.color = e.target.getAttribute('data-color');
-                // Устанавливаем цвет тени в зависимости от цвета Пакмана
                 pacman.shadowColor = `rgba(${getColorRGB(pacman.color)}, 0.6)`;
+                localStorage.setItem('pacmanColor', pacman.color);
+                localStorage.setItem('pacmanShadowColor', pacman.shadowColor);
             });
         });
 
@@ -299,17 +432,17 @@
                 purple: '128, 0, 128',
                 orange: '255, 165, 0'
             };
-            return colors[colorName] || '255, 255, 0'; // По умолчанию желтый
+            return colors[colorName] || '255, 255, 0';
         }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            let startAngle = pacman.angle + Math.PI / 4; // Угол начала линии для рисования Пакмана
-            let endAngle = pacman.angle - Math.PI / 4; // Угол конца линии для рисования Пакмана
+            let startAngle = pacman.angle + Math.PI / 4;
+            let endAngle = pacman.angle - Math.PI / 4;
 
             ctx.fillStyle = pacman.color;
-            ctx.shadowColor = pacman.shadowColor; // Используем цвет тени из объекта pacman
+            ctx.shadowColor = pacman.shadowColor;
             ctx.shadowBlur = 20;
             ctx.beginPath();
             ctx.moveTo(pacman.x * grid + grid / 2, pacman.y * grid + grid / 2);
@@ -344,7 +477,7 @@
                 ctx.shadowBlur = 0;
 
                 enemy.x += enemy.dx * 0.1;
-                enemy.y += enemy.dy * 0.1; 
+                enemy.y += enemy.dy * 0.1;
 
                 if (enemy.x < 0 || enemy.x >= count) {
                     enemy.dx *= -1;
@@ -365,32 +498,33 @@
             const distance = Math.hypot(pacman.x - food.x, pacman.y - food.y);
             if (distance < 1) {
                 score++;
+                money += 1;
+                localStorage.setItem('money', money); // Сохраняем деньги
+                document.getElementById('money').textContent = money;
                 food.x = Math.floor(Math.random() * count);
                 food.y = Math.floor(Math.random() * count);
-                pacman.speed += 0.1; 
+                pacman.speed += 0.1;
 
-                // Обработка появления новых врагов
                 const enemy = {
                     x: Math.floor(Math.random() * count),
                     y: Math.floor(Math.random() * count),
                     dx: Math.random() < 0.5 ? -1 : 1,
                     dy: Math.random() < 0.5 ? -1 : 1,
-                    spawnTime: Date.now() // время появления врага
+                    spawnTime: Date.now()
                 };
 
                 enemies.push(enemy);
-
                 document.getElementById('currentScore').textContent = score;
                 if (score > highScore) {
                     highScore = score;
                     document.getElementById('highScore').textContent = highScore;
                     localStorage.setItem('highScore', highScore);
                 }
+                createMoneyAnimation();
             }
 
             enemies.forEach(enemy => {
                 const enemyDistance = Math.hypot(pacman.x - enemy.x, pacman.y - enemy.y);
-                // Проверяем, если прошло более 2 секунд с момента появления врага
                 if (Date.now() - enemy.spawnTime >= 2000 && enemyDistance < 1) {
                     isGameOver = true;
                     document.getElementById('finalScore').textContent = score;
@@ -398,6 +532,16 @@
                     animateGameOver();
                 }
             });
+        }
+
+        function createMoneyAnimation() {
+            const moneyEl = document.createElement('div');
+            moneyEl.className = 'money-animation';
+            moneyEl.textContent = '+1';
+            document.body.appendChild(moneyEl);
+            setTimeout(() => {
+                moneyEl.remove();
+            }, 1000);
         }
 
         function animateGameOver() {
@@ -436,8 +580,41 @@
             const settingsPanel = document.getElementById('settingsPanel');
             settingsPanel.style.display = settingsPanel.style.display === 'none' || settingsPanel.style.display === '' ? 'block' : 'none';
         });
+
+        document.getElementById('shopButton').addEventListener('click', () => {
+            const shopPanel = document.getElementById('shop');
+            shopPanel.style.display = shopPanel.style.display === 'none' || shopPanel.style.display === '' ? 'block' : 'none';
+        });
+
+        document.getElementById('closeShop').addEventListener('click', () => {
+            document.getElementById('shop').style.display = 'none';
+        });
+
+        document.querySelectorAll('.buy-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const skin = this.parentNode.getAttribute('data-skin');
+                const price = parseInt(this.parentNode.getAttribute('data-price'));
+
+                if (money >= price) {
+                    money -= price;
+                    localStorage.setItem('money', money); // Обновляем деньги в хранилище
+                    document.getElementById('money').textContent = money;
+                    this.textContent = 'Куплено!';
+                    this.classList.add('bought');
+                    localStorage.setItem('currentSkin', skin); // Сохраняем текущий скин
+                    currentSkin = skin;
+                    resetGame(); // Обновляем игру на новый скин
+                } else {
+                    alert('Недостаточно денег!');
+                }
+            });
+        });
+
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('money', money); // Регистрируем деньги перед закрытием страницы
+        });
     </script>
 </body>
-</html>
 
+</html>
 
